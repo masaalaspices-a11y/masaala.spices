@@ -1,0 +1,102 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-display: "Amiri", "Noto Naskh Arabic", "DejaVu Serif", serif;
+  --font-sans: "Cairo", "Segoe UI", "DejaVu Sans", sans-serif;
+
+  --color-herb: #1f4d3a;
+  --color-herb-deep: #16382a;
+  --color-herb-soft: #2f6a50;
+  --color-herb-mist: #e4efe8;
+  --color-cream: #f6f1e8;
+  --color-paper: #fbf8f2;
+  --color-sand: #e8dcc8;
+  --color-ink: #1a1814;
+  --color-ink-soft: #4a453c;
+  --color-muted: #7a7368;
+  --color-spice: #a3442a;
+  --color-gold: #b08d57;
+  --color-gold-soft: #e2c48a;
+  --color-border: #ddd4c4;
+  --color-card: #fffcf7;
+  --color-danger: #9b2c1a;
+  --color-ok: #2f6a50;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-border:
+    0px 0px 0px 1px rgba(26, 24, 20, 0.06),
+    0px 1px 2px -1px rgba(26, 24, 20, 0.06),
+    0px 2px 8px 0px rgba(26, 24, 20, 0.04);
+  --shadow-border-hover:
+    0px 0px 0px 1px rgba(26, 24, 20, 0.1),
+    0px 8px 24px -8px rgba(31, 77, 58, 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  img {
+    outline: 1px solid rgba(26, 24, 20, 0.08);
+    outline-offset: -1px;
+  }
+
+  ::selection {
+    background: var(--color-herb);
+    color: var(--color-cream);
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: var(--shadow-border);
+  }
+  .shadow-card-hover {
+    box-shadow: var(--shadow-border-hover);
+  }
+  .mash-pattern {
+    background-image:
+      linear-gradient(rgba(246, 241, 232, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(246, 241, 232, 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
