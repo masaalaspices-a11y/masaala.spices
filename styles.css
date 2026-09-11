@@ -1,102 +1,375 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-
-@theme {
-  --font-display: "Amiri", "Noto Naskh Arabic", "DejaVu Serif", serif;
-  --font-sans: "Cairo", "Segoe UI", "DejaVu Sans", sans-serif;
-
-  --color-herb: #1f4d3a;
-  --color-herb-deep: #16382a;
-  --color-herb-soft: #2f6a50;
-  --color-herb-mist: #e4efe8;
-  --color-cream: #f6f1e8;
-  --color-paper: #fbf8f2;
-  --color-sand: #e8dcc8;
-  --color-ink: #1a1814;
-  --color-ink-soft: #4a453c;
-  --color-muted: #7a7368;
-  --color-spice: #a3442a;
-  --color-gold: #b08d57;
-  --color-gold-soft: #e2c48a;
-  --color-border: #ddd4c4;
-  --color-card: #fffcf7;
-  --color-danger: #9b2c1a;
-  --color-ok: #2f6a50;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-
-  --shadow-border:
-    0px 0px 0px 1px rgba(26, 24, 20, 0.06),
-    0px 1px 2px -1px rgba(26, 24, 20, 0.06),
-    0px 2px 8px 0px rgba(26, 24, 20, 0.04);
-  --shadow-border-hover:
-    0px 0px 0px 1px rgba(26, 24, 20, 0.1),
-    0px 8px 24px -8px rgba(31, 77, 58, 0.18);
+:root {
+  --bg: #000000;
+  --title: #fcfcfc;
+  --white: #ffffff;
+  --text-footnote: 0.9375rem; /* 15 — iOS Subhead */
+  --text-body: 1.0625rem; /* 17 — iOS Body */
+  --text-title: 1.25rem; /* 20 — iOS Title 3 */
+  --text-title-tablet: 1.5rem; /* 24 */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --leading: 1.3;
+  --duration-snappy: 220ms;
+  --ease-snappy: cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  --duration-smooth: 300ms;
+  --ease-smooth: cubic-bezier(0.19, 1, 0.22, 1);
+  --duration-swift: 800ms;
+  --ease-swift: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@layer base {
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: var(--color-paper);
-    color: var(--color-ink);
-  }
-
-  body {
-    font-family: var(--font-sans);
-    background: var(--color-paper);
-    color: var(--color-ink);
-    min-height: 100dvh;
-  }
-
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    text-wrap: balance;
-    letter-spacing: -0.02em;
-  }
-
-  p {
-    text-wrap: pretty;
-  }
-
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-
-  img {
-    outline: 1px solid rgba(26, 24, 20, 0.08);
-    outline-offset: -1px;
-  }
-
-  ::selection {
-    background: var(--color-herb);
-    color: var(--color-cream);
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@layer utilities {
-  .shadow-card {
-    box-shadow: var(--shadow-border);
-  }
-  .shadow-card-hover {
-    box-shadow: var(--shadow-border-hover);
-  }
-  .mash-pattern {
-    background-image:
-      linear-gradient(rgba(246, 241, 232, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(246, 241, 232, 0.08) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--white);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  font-optical-sizing: auto;
+  line-height: var(--leading);
+  letter-spacing: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  min-height: 100svh;
+  background: var(--bg);
+  overflow-x: hidden;
+  padding:
+    calc(20px + env(safe-area-inset-top))
+    32px
+    calc(24px + env(safe-area-inset-bottom));
+}
+
+.powered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 20px;
+  margin: 0 auto;
+  flex: 0 0 auto;
+}
+
+.powered-by,
+.powered-grok {
+  font-size: var(--text-footnote);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.powered-by {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.powered-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+}
+
+.grok-logo {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.powered-grok {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 338px;
+  margin: 0 auto;
+  gap: 40px;
+  padding-top: 28px;
+}
+
+/* The desktop fallback is opt-in: hidden unless the device is a desktop. */
+.content-desktop {
+  display: none;
+}
+
+.ob {
+  width: 100%;
+  max-width: 338px;
+  height: 294px;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.ob-img {
+  width: 100%;
+  height: 294px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.ob-ipad {
+  display: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+h1 {
+  margin: 0;
+  width: 100%;
+  align-self: stretch;
+  padding: 0;
+  color: var(--title);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  font-optical-sizing: auto;
+  line-height: var(--leading);
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-wrap: balance;
+  mix-blend-mode: plus-lighter;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  min-height: 1.5em;
+  white-space: nowrap;
+}
+
+.muted {
+  display: inline-flex;
+  align-items: center;
+  color: var(--white);
+  opacity: 0.5;
+  font-size: 1em;
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+  line-height: var(--leading);
+}
+
+.add-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plus-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.add-text {
+  display: inline-flex;
+  align-items: center;
+  color: var(--white);
+  font-size: 1em;
+  font-weight: var(--weight-medium);
+  letter-spacing: normal;
+  line-height: var(--leading);
+}
+
+.glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.glass--icon {
+  background: transparent;
+  box-shadow:
+    inset 0 2px 1px -1px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 1px -1px rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.glass--icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.loc-ipad {
+  display: none;
+}
+
+.step-ios27,
+.step-ios-legacy {
+  display: none;
+}
+
+html.device-phone.ios-27-plus .step-ios27,
+html.device-phone.ios-below-27 .step-ios-legacy,
+html.device-phone:not(.ios-27-plus):not(.ios-below-27) .step-ios-legacy,
+html.device-tablet .step-ios-legacy {
+  display: flex;
+}
+
+/* Desktop (also the no-JS default): swap the tutorial for a visible fallback
+   that links back to the app instead of hiding everything. */
+html.device-desktop .content {
+  display: none;
+}
+
+html.device-desktop .content-desktop {
+  display: flex;
+  max-width: 420px;
+}
+
+.desktop-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.desktop-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 2px 1px -1px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 1px -1px rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+
+.desktop-open:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+html.device-tablet .page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(24px + env(safe-area-inset-top))
+    24px
+    calc(24px + env(safe-area-inset-bottom));
+}
+
+html.device-tablet .powered {
+  display: none;
+}
+
+html.device-tablet .content {
+  max-width: 634px;
+  margin: 0;
+  gap: 40px;
+}
+
+html.device-tablet .ob {
+  max-width: 634px;
+}
+
+html.device-tablet .ob-phone {
+  display: none;
+}
+
+html.device-tablet .ob-ipad {
+  display: block;
+}
+
+html.device-tablet h1 {
+  font-size: var(--text-title-tablet);
+  letter-spacing: -0.015em;
+}
+
+html.device-tablet .step {
+  gap: 10px;
+}
+
+html.device-tablet .glass {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+}
+
+html.device-tablet .plus-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+}
+
+html.device-tablet .loc-phone {
+  display: none;
+}
+
+html.device-tablet .loc-ipad {
+  display: inline;
+}
+
+@media (max-height: 700px) {
+  html.device-phone .content {
+    justify-content: center;
   }
 }
